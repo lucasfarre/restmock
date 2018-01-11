@@ -1,0 +1,67 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'distribution'
+    id 'us.kirchmeier.capsule' version '1.0.2'
+    id 'com.monits.staticCodeAnalysis' version '2.6.3'
+}
+
+group 'com.lucasfarre'
+version '1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'com.sparkjava:spark-core:2.7.1'
+    compile 'org.apache.logging.log4j:log4j-api:2.10.0'
+    compile 'org.apache.logging.log4j:log4j-core:2.10.0'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'io.rest-assured:rest-assured:3.0.6'
+}
+
+task app(type:FatCapsule) {
+    applicationClass 'com.lucasfarre.restmock.Main'
+
+    capsuleManifest {
+        systemProperties['Restricted'] = 'true'
+        minJavaVersion = '1.8.0'
+        jvmArgs = ['-Xms512m', '-Xmx2g', '-XX:+HeapDumpOnOutOfMemoryError', '-Djava.net.preferIPv4Stack=true']
+    }
+}
+
+distributions {
+    main {
+        baseName 'main'
+        contents {
+            from app
+        }
+    }
+}
+
+task run(type:JavaExec) {
+    dependsOn app
+    main = "-jar"
+    args = [app.archivePath]
+    standardInput = System.in
+}
+
+task wrapper(type:Wrapper) {
+    gradleVersion = '4.4.1'
+    distributionType = Wrapper.DistributionType.ALL
+}
+
+staticCodeAnalysis {
+    ignoreErrors = false
+    findbugsExclude = "$project.rootProject.projectDir/config/findbugs/findbugs-exclusions.xml"
+}
+
+plugins.withType(CheckstylePlugin) {
+    checkstyle {
+        maxWarnings = 0 // allow no warnings!
+    }
+}
