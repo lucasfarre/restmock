@@ -8,6 +8,7 @@ import org.apache.http.HttpHeaders;
 import org.apache.http.HttpStatus;
 import org.apache.http.entity.ContentType;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import spark.Spark;
 import spark.utils.IOUtils;
@@ -36,6 +37,7 @@ public final class RouterTest {
     }
 
     @Test
+    @Ignore("mongo testing")
     public void postAndGetMock() throws Exception {
         final String body = IOUtils.toString(getClass().getResourceAsStream("/mock_request.json"));
         final Response response = given().body(body).post("http://localhost:8080/mock");
