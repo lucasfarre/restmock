@@ -12,7 +12,7 @@ public enum MongoJsonStoreService implements JsonStoreService {
     INSTANCE;
 
     @SuppressWarnings("PMD.AvoidUsingHardCodedIP")
-    private static final String HOST = "172.18.0.2";
+    private static final String HOST = "172.16.238.10";
     private static final int PORT = 27017;
     private static final String ID_FIELD = "_id";
 

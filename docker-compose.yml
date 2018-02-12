@@ -1,0 +1,20 @@
+version: '3'
+services:
+  db:
+    image: 'mongo'
+    networks:
+      net:
+        ipv4_address: 172.16.238.10
+  app:
+    build: .
+    ports:
+      - '8080:8080'
+    networks:
+      - net
+networks:
+  net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24
