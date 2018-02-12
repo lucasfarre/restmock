@@ -1,0 +1,9 @@
+{
+  "id": "ffcb8b570bff4a238d0a7394171ed1bd",
+  "http_method": "get",
+  "http_status": 200,
+  "headers": {
+    "Content-Type":"application/json"
+  },
+  "body": "{\"message\":\"Hello World!\"}"
+}

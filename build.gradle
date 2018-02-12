@@ -26,6 +26,7 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
     testCompile 'io.rest-assured:rest-assured:3.0.6'
+    testCompile 'org.mockito:mockito-core:2.15.0'
 }
 
 task app(type:FatCapsule) {
