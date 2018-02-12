@@ -22,3 +22,6 @@ gradle-app.setting
 
 # Ignore merge conflic files
 *.orig
+
+# Ignore mongoDB data volume
+/data/db

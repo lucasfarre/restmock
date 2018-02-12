@@ -31,6 +31,7 @@ task app(type:FatCapsule) {
     applicationClass 'com.lucasfarre.restmock.Main'
 
     capsuleManifest {
+        archiveName = 'app.jar'
         systemProperties['Restricted'] = 'true'
         minJavaVersion = '1.8.0'
         jvmArgs = ['-Xms512m', '-Xmx2g', '-XX:+HeapDumpOnOutOfMemoryError', '-Djava.net.preferIPv4Stack=true']
@@ -48,7 +49,7 @@ distributions {
 
 task run(type:JavaExec) {
     dependsOn app
-    main = "-jar"
+    main = '-jar'
     args = [app.archivePath]
     standardInput = System.in
 }
