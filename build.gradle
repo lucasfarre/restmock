@@ -4,6 +4,7 @@ plugins {
     id 'distribution'
     id 'us.kirchmeier.capsule' version '1.0.2'
     id 'com.monits.staticCodeAnalysis' version '2.6.3'
+    id 'jacoco'
 }
 
 group 'com.lucasfarre'
@@ -67,5 +68,12 @@ staticCodeAnalysis {
 plugins.withType(CheckstylePlugin) {
     checkstyle {
         maxWarnings = 0 // allow no warnings!
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled true
     }
 }

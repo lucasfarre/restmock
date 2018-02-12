@@ -36,8 +36,8 @@ public final class RouterTest {
         assertEquals("pong", response.body().asString());
     }
 
+    @Ignore("JsonStoreService needs be mocked to run tests on travis") // TODO
     @Test
-    @Ignore("mongo testing")
     public void postAndGetMock() throws Exception {
         final String body = IOUtils.toString(getClass().getResourceAsStream("/mock_request.json"));
         final Response response = given().body(body).post("http://localhost:8080/mock");
