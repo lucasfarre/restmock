@@ -16,7 +16,6 @@ import org.junit.Test;
 import spark.Spark;
 import spark.utils.IOUtils;
 
-import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -27,20 +26,13 @@ import static org.mockito.Mockito.when;
 
 public final class RouterTest {
 
-    private static final String MOCK_BODY = "{\"message\":\"Hello World!\"}";
+    private static final String MOCK_BODY = "{\"message\":\"Hello, World!\"}";
 
     @BeforeClass
     public static void before() {
         Spark.port(8080);
         new Router().init();
         Spark.awaitInitialization();
-    }
-
-    @Test
-    public void ping() {
-        final Response response = get("http://localhost:8080/ping");
-        assertEquals(HttpStatus.SC_OK, response.statusCode());
-        assertEquals("pong", response.body().asString());
     }
 
     @Test
@@ -56,11 +48,11 @@ public final class RouterTest {
         assertEquals(HttpStatus.SC_CREATED, response.statusCode());
         final ResponseMock responseMock = GsonWrapper.INSTANCE.fromJson(response.body().asString(), ResponseMock.class);
         assertNotNull(responseMock.getId());
-        assertEquals(HttpStatus.SC_OK, responseMock.getHttpStatus());
+        assertEquals(HttpStatus.SC_OK, responseMock.getStatus());
         assertEquals(ContentType.APPLICATION_JSON.getMimeType(), responseMock.getHeaders().get(HttpHeaders.CONTENT_TYPE));
         assertEquals(MOCK_BODY, responseMock.getBody());
 
-        final String mockResponseId = "ffcb8b570bff4a238d0a7394171ed1bd";
+        final String mockResponseId = "73f01ced-48be-46ff-ad68-5f4103517d3b";
         final String mockResponseJson = IOUtils.toString(getClass().getResourceAsStream("/mock_response.json"));
         when(jsonStoreServiceMock.get(any())).thenReturn(Optional.of(mockResponseJson));
         final Response getResponse = given().get("http://localhost:8080/mock/" + mockResponseId);

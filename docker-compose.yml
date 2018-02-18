@@ -3,7 +3,7 @@ services:
   app:
     build: .
     ports:
-      - '8080:8080'
+      - '80:8080'
     networks:
       - net
     depends_on:
@@ -12,7 +12,7 @@ services:
     image: 'mongo'
     networks:
       net:
-        ipv4_address: 172.16.238.10
+        ipv4_address: 10.0.0.10
     volumes:
       - './data/db:/data/db'
 networks:
@@ -21,4 +21,4 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.16.238.0/24
+        - subnet: 10.0.0.0/24

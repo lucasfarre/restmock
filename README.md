@@ -14,16 +14,16 @@ A REST API for mocking other REST API responses.
 #### Create a response mock
 Post a new mock with your expected response:
 
-`curl -X POST -d '{"http_method":"get","http_status":200,"headers":{"Content-Type":"application/json"},"body":"{\"message\":\"Hello, World!\"}"}' http://localhost:8080/mock`
+`curl -X POST -d '{"method":"get","status":200,"headers":{"Content-Type":"application/json"},"body":"{\"message\":\"Hello, World!\"}"}' http://localhost/mock`
 
 > You might escape your body as the example above.
 
 You'll get a response like this:
 ```
 {  
-   "id":"b349607f1786450ea8804d2f2a6946dd",
-   "http_method":"get",
-   "http_status":200,
+   "id":"73f01ced-48be-46ff-ad68-5f4103517d3b",
+   "method":"get",
+   "status":200,
    "headers":{  
       "Content-Type":"application/json"
    },
@@ -33,15 +33,15 @@ You'll get a response like this:
 #### Use your mock
 Now you have your mock id, you can try it:
 
-`curl -X GET -v http://localhost:8080/mock/b349607f1786450ea8804d2f2a6946dd`
+`curl -v http://localhost/mock/73f01ced-48be-46ff-ad68-5f4103517d3b`
 
 You'll get the response mock you requested earlier:
 ```
 *   Trying ::1...
 * TCP_NODELAY set
-* Connected to localhost (::1) port 8080 (#0)
-> GET /mock/b349607f1786450ea8804d2f2a6946dd HTTP/1.1
-> Host: localhost:8080
+* Connected to localhost (::1) port 80 (#0)
+> GET /mock/73f01ced-48be-46ff-ad68-5f4103517d3b HTTP/1.1
+> Host: localhost
 > User-Agent: curl/7.54.0
 > Accept: */*
 > 

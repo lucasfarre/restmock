@@ -1,6 +1,7 @@
 package com.lucasfarre.restmock.dto;
 
 import com.lucasfarre.restmock.util.Either;
+import org.eclipse.jetty.http.HttpHeader;
 import org.eclipse.jetty.http.HttpStatus;
 import spark.Response;
 
@@ -11,7 +12,9 @@ public final class ApiError implements EitherAlternativeResponse<ApiError> {
     public static final ApiError WRONG_HTTP_METHOD = new ApiError("wrong_http_method",
         "This mock responds to other HTTP method.", HttpStatus.BAD_REQUEST_400);
     public static final ApiError INVALID_BODY = new ApiError("invalid_body",
-        "The given body is invalid", HttpStatus.BAD_REQUEST_400);
+        "The given body is invalid.", HttpStatus.BAD_REQUEST_400);
+    public static final ApiError LARGE_BODY = new ApiError("large_body",
+        "The given body is too large.", HttpStatus.BAD_REQUEST_400);
 
     private final String code;
     private final String message;
@@ -24,8 +27,9 @@ public final class ApiError implements EitherAlternativeResponse<ApiError> {
     }
 
     @Override
-    public <A> Either<A, ApiError> asEitherResponse(final Response response) {
+    public <A> Either<A, ApiError> asEitherAlternativeResponse(final Response response) {
         response.status(status);
+        response.header(HttpHeader.CONTENT_TYPE.toString(), "application/json");
         return Either.alternative(this);
     }
 

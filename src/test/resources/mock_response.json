@@ -1,9 +1,9 @@
 {
-  "id": "ffcb8b570bff4a238d0a7394171ed1bd",
-  "http_method": "get",
-  "http_status": 200,
+  "id": "73f01ced-48be-46ff-ad68-5f4103517d3b",
+  "method": "get",
+  "status": 200,
   "headers": {
     "Content-Type":"application/json"
   },
-  "body": "{\"message\":\"Hello World!\"}"
+  "body": "{\"message\":\"Hello, World!\"}"
 }

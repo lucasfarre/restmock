@@ -13,6 +13,6 @@ public interface EitherAlternativeResponse<B> {
      * @param <A> the either value type
      * @return this as an either
      */
-    <A> Either<A, B> asEitherResponse(final Response response);
+    <A> Either<A, B> asEitherAlternativeResponse(final Response response);
 
 }

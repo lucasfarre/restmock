@@ -1,7 +1,6 @@
 package com.lucasfarre.restmock.service;
 
 import com.lucasfarre.restmock.dto.ResponseMock;
-import com.lucasfarre.restmock.dto.ResponseMockRequest;
 import com.lucasfarre.restmock.util.GsonWrapper;
 
 import java.util.Optional;
@@ -19,10 +18,10 @@ public enum ResponseMockService {
      * @param responseMockRequest the response mock request
      * @return the new response mock
      */
-    public ResponseMock postResponseMock(final ResponseMockRequest responseMockRequest) {
-        final String id = UUID.randomUUID().toString().replace("-", "");
-        final ResponseMock responseMock = new ResponseMock(id, responseMockRequest);
-        jsonStoreService.save(id, GsonWrapper.INSTANCE.toJson(responseMock));
+    public ResponseMock postResponseMock(final ResponseMock responseMockRequest) {
+        final ResponseMock responseMock = new ResponseMock.Builder(responseMockRequest)
+            .withId(UUID.randomUUID().toString()).build();
+        jsonStoreService.save(responseMock.getId(), GsonWrapper.INSTANCE.toJson(responseMock));
         return responseMock;
     }
 
